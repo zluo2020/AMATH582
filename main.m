@@ -16,13 +16,13 @@ for j=1:20
     Untave = Untave + Unt; % Aggregate all 20 observations
 end
 Untave = Untave./20;
-% isosurface?
-%% CENTER FREQUENCY
 
+%% CENTER FREQUENCY
 % reshape and indexing the maximum
 [max_val,index] = max((Untave(:)));
 %  linear index to [row, column, slice] indices
 [y,x,z]=ind2sub(size(Untave),index);
+center_frequency = [k(x),k(y),k(z)];
 
 %% GAUSSIAN FILTER
 tau = 1;
@@ -44,6 +44,8 @@ for j=1:20
     trajectory(j,:) = [X(index), Y(index), Z(index)];
 end
 
+% marble coordinates
+marble_coord = [trajectory(20,1),trajectory(20,2),trajectory(20,3)];
 %% PLOT FILTERED OBSERVATION
 figure(2)
 isosurface(X,Y,Z,abs(Unf)/max_val,0.8)
@@ -55,3 +57,7 @@ figure(3)
 plot3(trajectory(:,1),trajectory(:,2),trajectory(:,3),'-o')
 axis([-L L -L L -L L]),grid on, drawnow
 xlabel('x'); ylabel('y');zlabel('z');
+
+%% COMPUTATIONAL RESULT
+center_frequency
+marble_coord
