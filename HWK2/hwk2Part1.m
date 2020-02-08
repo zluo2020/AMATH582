@@ -35,9 +35,9 @@ sgtitle('Gabor Window with different width','Fontsize',[10])
 
 %% Construct filters
 gaussian = @(x,width) exp(-width*(x).^2);
-super_gaussian = @(x) exp(-width*(x).^10);
-mexican_hat = @(x) (1-(x/width).^2).*exp(-((x/width).^2)/2);
-shannon = @(x) (x>-width/2 & x<width/2);
+super_gaussian = @(x,width) exp(-width*(x).^10);
+mexican_hat = @(x,width) (1-(x/width).^2).*exp(-((x/width).^2)/2);
+shannon = @(x,width) (x>-width/2 & x<width/2);
 %% Gabor Transform
 figure(3)
 Vgt_spec=[];
