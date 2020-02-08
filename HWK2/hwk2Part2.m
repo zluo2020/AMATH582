@@ -4,7 +4,7 @@ tr_piano = 16; % record time in seconds
 tr_recorder = 14;
 
 L = tr_piano;
-L = tr_recorder;
+%L = tr_recorder;
 
 [y,Fs] = audioread('music1.wav');
 %[y,Fs] = audioread('music2.wav');
@@ -38,11 +38,11 @@ end
 %% Piano frequency range
 figure(3)
 pcolor(tslide,ks,log(Ygt_spec.'+1)),shading interp
-axis([0 15 20 4200])
+axis([0 15 1000 3500])
 colormap(hot)
 %% Recorder Frequency range
-figure(3)
-pcolor(tslide,ks,log(Ygt_spec.'+1)),shading interp
-axis([0 15 4000 7000])
-colormap(hot)
+%figure(3)
+%pcolor(tslide,ks,log(Ygt_spec.'+1)),shading interp
+%axis([0 15 4000 7000])
+%colormap(hot)
     
