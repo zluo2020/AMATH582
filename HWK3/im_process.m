@@ -1,4 +1,9 @@
 function [x_loc, y_loc] = im_process(file, window, threshold_x, threshold_y)
+    % this function takes in the video file
+    % and artficial window highlighting the portion of the frame
+    % the thresholds stands for the percentiles accepted for averaging
+    % pixel/location for the points with highest intensity.
+    % the trajectory of paint bin is saved in x_loc and y_loc
     vid_data = load(file);
     cam_data = cell2mat(struct2cell(vid_data));
     s = size(cam_data);
