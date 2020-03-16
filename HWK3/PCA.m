@@ -1,4 +1,5 @@
 function PCA(experiment,smooth)
+    % 1 = smooth on
     loc_name = {'x_loc','y_loc'};
     data = struct;
     min_length = intmax;
