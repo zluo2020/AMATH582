@@ -1,13 +1,8 @@
 function [x_loc, y_loc] = im_process(file, window, threshold_x, threshold_y)
-    % this function takes in the video file
-    % and artficial window highlighting the portion of the frame
-    % the thresholds stands for the percentiles accepted for averaging
-    % pixel/location for the points with highest intensity.
-    % the trajectory of paint bin is saved in x_loc and y_loc
     vid_data = load(file);
     cam_data = cell2mat(struct2cell(vid_data));
     s = size(cam_data);
-    num_of_frames = s(4)
+    num_of_frames = s(4);
     
     x_start = window(1);
     x_end = window(2);
@@ -16,23 +11,26 @@ function [x_loc, y_loc] = im_process(file, window, threshold_x, threshold_y)
 
     x_loc = zeros(1,num_of_frames);
     y_loc = zeros(1,num_of_frames);
+
     for n = 1:num_of_frames
         frame = cam_data(:,:,:,n);
         filter = create_filter(x_start,x_end,y_start,y_end);
         [x,y] = find_loc(filter, frame, threshold_x, threshold_y);
         % based on average intensity point, we apply a filter again to 
         % get rid of the white area below the flashlight
-        %filter2 = create_filter(double(x)-20,double(x)+30,double(y)-80, double(y)+10);
-        %[x,y] = find_loc(filter2, frame,0.1,1);
-        plot_frame = double(frame).*filter;
+        filter2 = create_filter(double(x)-20,double(x)+30,double(y)-50, double(y)+10);
+        [x,y] = find_loc(filter2, frame,0.1,1);
+        plot_frame = double(frame).*filter2;
         imshow(uint8(plot_frame))
         hold on
         plot(x, y,'r.','markersize',20)
         pause(0.1)
+        
         x_loc(n) = x;
         y_loc(n) = y;
+
     end
     
     figure(2)
-    plot(1:1:num_of_frames,480-y_loc)
+    plot(1:1:num_of_frames,y_loc)
 end
